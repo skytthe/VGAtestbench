@@ -1,0 +1,116 @@
+# Windows image file caches
+Thumbs.db
+ehthumbs.db
+
+# Folder config file
+Desktop.ini
+
+# Recycle Bin used on file shares
+$RECYCLE.BIN/
+
+# Windows Installer files
+*.cab
+*.msi
+*.msm
+*.msp
+
+# Windows shortcuts
+*.lnk
+
+# =========================
+# Operating System Files
+# =========================
+
+# OSX
+# =========================
+
+*.swp
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Thumbnails
+._*
+
+# Files that might appear on external disk
+.Spotlight-V100
+.Trashes
+
+# Directories potentially created on remote AFP share
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
+
+
+
+# =========================
+# Xilinx
+# =========================
+_ngo
+_xmsgs
+ipcore_dir
+iseconfig
+xlnx_auto_0_xdb
+xst
+planAhead_run_1
+isim
+
+VGAtestbench\_ngo
+VGAtestbench\_xmsgs
+VGAtestbench\ipcore_dir
+VGAtestbench\iseconfig
+VGAtestbench\xlnx_auto_0_xdb
+VGAtestbench\xst
+VGAtestbench\planAhead_run_1
+VGAtestbench\isim
+
+*.wdb
+*.xmsgs
+*.ini
+*.exe
+*.xml
+*.log
+*.html
+*.txt
+*.csv
+*.ngm
+*.ncd
+*.xrpt
+*.mrp
+*.map
+*.xwbt
+*.xst
+*.xpi
+*.ut
+*.unroutes
+*.twx
+*.twr
+*.xsl
+*.bgn
+*.bit
+*.bld
+*.cmd_log
+*.drc
+*.lso
+*.ngc
+*.ngd
+*.ngr
+*.pad
+*.par
+*.pcf
+*.prj
+*.ptwx
+*.stx
+*.syr
+*.gise
+*.xise
+*.xdl
+*.tcl
+*.debug
+*.cmd
+*.vhi
+
+.project
+.settings
