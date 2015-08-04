@@ -12,8 +12,8 @@ architecture Behavioral of tb_vga is
 	constant clk_40M_period : time      := 25 ns;
 	signal clk_40M          : std_logic := '0';
 
-	signal mem_adr 		: std_logic_vector(18 downto 0);
-	signal mem_data		: std_logic;
+	signal mem_adr 		: std_logic_vector(18 downto 0) 	:= (others => '0');
+	signal mem_data		: std_logic 							:= '0';
 
 begin
 
