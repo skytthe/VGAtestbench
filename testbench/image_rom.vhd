@@ -8,7 +8,7 @@ use std.textio.all;
 entity image_rom is
 	port (
 		clk_i 	: in std_logic;
-		adr_i 	: in std_logic_vector(17 downto 0);
+		adr_i 	: in std_logic_vector(18 downto 0);
 		data_o	: out std_logic
 	);
 end entity image_rom;
@@ -29,7 +29,7 @@ architecture Behavioral of image_rom is
 		return image_rom;
 	end function;
 		
-	signal image_rom : ROM := load_rom("image_file.list");
+	signal image_rom : ROM := load_rom("image_rom.list");
 	
 begin
 	
