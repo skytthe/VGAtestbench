@@ -57,14 +57,16 @@ xst
 planAhead_run_1
 isim
 
-VGAtestbench\_ngo
-VGAtestbench\_xmsgs
-VGAtestbench\ipcore_dir
-VGAtestbench\iseconfig
-VGAtestbench\xlnx_auto_0_xdb
-VGAtestbench\xst
-VGAtestbench\planAhead_run_1
-VGAtestbench\isim
+#
+#VGAtestbench\_ngo
+#VGAtestbench\_xmsgs
+#VGAtestbench\ipcore_dir
+#VGAtestbench\iseconfig
+#VGAtestbench\xlnx_auto_0_xdb
+#VGAtestbench\xst
+#VGAtestbench\planAhead_run_1
+#VGAtestbench\isim
+#
 
 *.wdb
 *.xmsgs

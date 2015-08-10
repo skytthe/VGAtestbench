@@ -11,13 +11,16 @@ entity tb_vga is
 end entity tb_vga;
 
 architecture Behavioral of tb_vga is
+	-- Clocks
+	constant C_CLK_FREQ_HZ  : integer := 40000000;
 	constant clk_40M_period : time      := 25 ns;
 	signal clk_40M          : std_logic := '0';
 
-	signal mem_adr 		: std_logic_vector(18 downto 0) 	:= (others => '0');
-	signal mem_data		: std_logic_vector(0 downto 0)	:= "0";
-
-	file f : text open write_mode is "data.txt"; 
+	-- routing signals
+	signal r_i,b_i,g_i 		: std_logic_vector(9 downto 0);
+	signal hsync_i,vsync_i	: std_logic;
+	signal r_o,b_o,g_o 		: std_logic_vector(2 downto 0);
+	signal hsync_o,vsync_o	: std_logic;
 
 begin
 
@@ -31,29 +34,42 @@ begin
 	end process;
 
 	-- Component declarations
-	pong_image_rom : entity work.image_rom
+	VGAgenerator : entity work.vga_generator
 		port map(
-			clk_i  => clk_40M,
-			adr_i  => mem_adr,
-			data_o => mem_data(0)
+			r_o     => r_i,
+			g_o     => g_i,
+			b_o     => b_i,
+			hsync_o => hsync_i,
+			vsync_o => vsync_i
+		);
+		
+	PongModel : entity work.model
+		generic map(
+			C_CLK_FREQ_HZ => C_CLK_FREQ_HZ
+		)
+		port map(
+			clk_i   => clk_40M,
+			r_i     => r_i,
+			g_i     => g_i,
+			b_i     => b_i,
+			hsync_i => hsync_i,
+			vsync_i => vsync_i,
+			r_o     => r_o,
+			g_o     => g_o,
+			b_o     => b_o,
+			hsync_o => hsync_o,
+			vsync_o => vsync_o
+		);
+	
+	VGAsampler : entity work.vga_sampler
+		port map(
+			r_i     => r_o,
+			g_i     => g_o,
+			b_i     => b_o,
+			hsync_i => hsync_o,
+			vsync_i => vsync_o
 		);
 
-
-	process(clk_40M)
-		variable c : integer := -1;
-		variable l : line;
-		
-	begin
-		if rising_edge(clk_40M) then
-			c := c +1;
-			mem_adr <= std_logic_vector(to_unsigned(c, mem_adr'length));
-			if c < 800*600 then
-				write(l,to_integer(unsigned(mem_data)));
-				writeline(f,l);
-			end if;
-		end if;
-	end process;
-	
 	-- Stimulus process
 	stim_proc : process
 	begin
