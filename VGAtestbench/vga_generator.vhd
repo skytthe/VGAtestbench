@@ -63,17 +63,17 @@ architecture Behavioral of vga_generator is
 	constant C_VS_OFFSET2		: integer := C_V_Pulse+C_V_BP+C_V_LN;
 	constant C_LINES_PR_FRAME 	: integer := C_V_FP+C_V_Pulse+C_V_BP+C_V_LN;	
 	
-	signal pxl_clk			: std_logic;
+	signal pxl_clk			: std_logic := '0';
 	
-	signal pixel_cnt_reg : unsigned(log2r(C_PIXEL_PR_LINE) downto 0) := (others=>'0');
-	signal pixel_cnt_nxt : unsigned(log2r(C_PIXEL_PR_LINE) downto 0);
+	signal pixel_cnt_reg : unsigned(log2r(C_PIXEL_PR_LINE)-1 downto 0) := to_unsigned(C_PIXEL_PR_LINE-1	,log2r(C_PIXEL_PR_LINE));		--(others=>'0');
+	signal pixel_cnt_nxt : unsigned(log2r(C_PIXEL_PR_LINE)-1 downto 0);
 	
-	signal line_cnt_reg : unsigned(log2r(C_LINES_PR_FRAME) downto 0) := (others=>'0');
-	signal line_cnt_nxt : unsigned(log2r(C_LINES_PR_FRAME) downto 0);	
+	signal line_cnt_reg : unsigned(log2r(C_LINES_PR_FRAME)-1 downto 0) := to_unsigned(C_LINES_PR_FRAME-1	,log2r(C_LINES_PR_FRAME));	--(others=>'0');
+	signal line_cnt_nxt : unsigned(log2r(C_LINES_PR_FRAME)-1 downto 0);	
 
-	signal mem_cnt_reg : unsigned(18 downto 0) := (others=>'0');
-	signal mem_cnt_nxt : unsigned(18 downto 0);
-	signal mem_data	: std_logic;
+	signal mem_cnt_reg : unsigned(log2r(C_H_PX*C_V_LN)-1 downto 0) := (others=>'0');
+	signal mem_cnt_nxt : unsigned(log2r(C_H_PX*C_V_LN)-1 downto 0);
+	signal mem_data	: std_logic := '0';
 
 begin
 
@@ -81,10 +81,13 @@ begin
 	-- pixel clock generator
 	process
 	begin
-		pxl_clk <= '0';
-		wait for G_PXL_CLK_PRD/2;
-		pxl_clk <= '1';
-		wait for G_PXL_CLK_PRD/2;
+		wait for G_PXL_CLK_PRD*10;
+		loop
+			pxl_clk <= '0';
+			wait for G_PXL_CLK_PRD/2;
+			pxl_clk <= '1';
+			wait for G_PXL_CLK_PRD/2;
+		end loop;
 	end process;
 	
 	-- HS and VS generator
