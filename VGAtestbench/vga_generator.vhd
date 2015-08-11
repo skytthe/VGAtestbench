@@ -65,10 +65,10 @@ architecture Behavioral of vga_generator is
 	
 	signal pxl_clk			: std_logic := '0';
 	
-	signal pixel_cnt_reg : unsigned(log2r(C_PIXEL_PR_LINE)-1 downto 0) := to_unsigned(C_PIXEL_PR_LINE-1	,log2r(C_PIXEL_PR_LINE));		--(others=>'0');
+	signal pixel_cnt_reg : unsigned(log2r(C_PIXEL_PR_LINE)-1 downto 0) := to_unsigned(C_PIXEL_PR_LINE-1	,log2r(C_PIXEL_PR_LINE));
 	signal pixel_cnt_nxt : unsigned(log2r(C_PIXEL_PR_LINE)-1 downto 0);
 	
-	signal line_cnt_reg : unsigned(log2r(C_LINES_PR_FRAME)-1 downto 0) := to_unsigned(C_LINES_PR_FRAME-1	,log2r(C_LINES_PR_FRAME));	--(others=>'0');
+	signal line_cnt_reg : unsigned(log2r(C_LINES_PR_FRAME)-1 downto 0) := to_unsigned(C_LINES_PR_FRAME-1	,log2r(C_LINES_PR_FRAME));
 	signal line_cnt_nxt : unsigned(log2r(C_LINES_PR_FRAME)-1 downto 0);	
 
 	signal mem_cnt_reg : unsigned(log2r(C_H_PX*C_V_LN)-1 downto 0) := (others=>'0');
@@ -147,6 +147,11 @@ begin
 
 	mem_cnt_nxt <=	mem_cnt_reg+1 	when	(pixel_cnt_reg > (C_HS_OFFSET-1) and 
 													 pixel_cnt_reg < (C_HS_OFFSET2)  and 
+													 line_cnt_reg  > (C_VS_OFFSET-1) and 
+													 line_cnt_reg  < (C_VS_OFFSET2-1))
+											else 
+						mem_cnt_reg+1 	when	(pixel_cnt_reg > (C_HS_OFFSET-1) and 
+													 pixel_cnt_reg < (C_HS_OFFSET2-1)and 
 													 line_cnt_reg  > (C_VS_OFFSET-1) and 
 													 line_cnt_reg  < (C_VS_OFFSET2))
 											else 
