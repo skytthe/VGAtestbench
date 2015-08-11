@@ -68,6 +68,7 @@ isim
 #VGAtestbench\isim
 #
 
+*.wcfg
 *.wdb
 *.xmsgs
 *.ini
